@@ -9,8 +9,8 @@ public class conexion {
 	
 	public static Connection darConexion() {
 		
-		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/motor_racing_ver5?user=root&password=5778380")){
-			System.out.println("conexion exitosa");
+		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/motor_racing_ver5?user=root&password=root")){
+
 			
 			return con;
 		
