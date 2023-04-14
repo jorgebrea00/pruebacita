@@ -7,16 +7,16 @@ import java.sql.SQLException;
 public class conexion {
 
 	
-	public static Connection darConexion() {
-		
-		try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/motor_racing_ver5?user=root&password=root")){
 
-			
-			return con;
-		
-		} catch (SQLException e) {
-			System.out.println(e);
-		}
-		return null;
+	public static Connection darConexion() {
+	    Connection con = null;
+
+	    try {
+	        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/motor_racing_ver5?user=root&password=root");
+	    } catch (SQLException e) {
+	        System.out.println(e);
+	    }
+	    
+	    return con;
 	}
 }

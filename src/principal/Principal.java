@@ -1,13 +1,18 @@
 package principal;
 
-import conexion.conexion;
+import model.CabecerasDiagnostico;
+import model.Cliente;
+import server.CitaServer;
 
 public class Principal {
 
 	
 	public static void main(String[] args) {
 		
-		conexion.darConexion();
+		Cliente cliente = new Cliente();
+		CabecerasDiagnostico cabecerasDiagnostico = new CabecerasDiagnostico();
+		
+		CitaServer.insertarCitaServer(cliente, cabecerasDiagnostico);
 		
 	}
 }

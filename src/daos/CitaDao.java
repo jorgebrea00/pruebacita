@@ -2,39 +2,38 @@ package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
+
+import conexion.conexion;
 import model.Cita;
 
 
 public class CitaDao {
 
-	private String tabla="citas";
-	private Connection conexion;
+	private static String tabla="citas";
 
 
-		public int insert(Cita cita) {
-			String ordenSql="insert into "+tabla+" values (?, ?, ?)"; 	 
-			try (PreparedStatement ps = conexion.prepareStatement(ordenSql, Statement.RETURN_GENERATED_KEYS);
-					) {
+
+		public static void insert(Cita cita) {
+			String ordenSql="insert into "+tabla+" values (?, ?, ?, ?, ?)"; 	 
+			
+			try (Connection co =  conexion.darConexion();)
+			{
+				PreparedStatement ps = co.prepareStatement(ordenSql);
+						
 				ps.setNull(1, 0);										// id auto-generado
-				ps.setObject(2, cita.getFechaHora());
-				ps.setObject(3, cita.getCabecerasDiagnostico());
-				ps.setObject(4, cita.getCliente());
-				ps.setObject(5, cita.getVehiculo());
-				ps.executeUpdate();	
-				ResultSet claveGenerada=ps.getGeneratedKeys();
-				claveGenerada.next();									
-				return claveGenerada.getInt(1); // Le decimos que guarde en id la clave generada en la primera columna.
-			}catch (Exception e){		
+				ps.setString(2, cita.getFechaHora().toString());
+				ps.setInt(5, cita.getCabecerasDiagnostico().getId());
+				ps.setInt(4, cita.getCliente().getId());
+				ps.setInt(3, cita.getVehiculo().getId());
+				ps.execute();	
+				
+			}catch (SQLException e){	
+				
 				//System.out.println(Mensajes.ERROR_GRABAR_REGISTRO + e.getMessage());
 				e.printStackTrace();
-				return 0;
+				
 			}
 		}
 
