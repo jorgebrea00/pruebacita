@@ -2,8 +2,10 @@ package daos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 import conexion.conexion;
 import model.Cita;
@@ -37,31 +39,31 @@ public class CitaDao {
 			}
 		}
 
-/*
-		@Override
-		public Login read  (int id) {
-			Login login=new Login();
-			String ordenSql="select * from "+tabla+ " where id= ?";
-			try(PreparedStatement ps=conexion.prepareStatement(ordenSql)){	
-				ps.setInt(1, id);
+
+		public static ArrayList<LocalDate> LeePorFechaEnAdelante  (LocalDate localDate) {
+
+			ArrayList<LocalDate> arrayList = new ArrayList<>();
+			String ordenSql="select fecha_hora from "+tabla+ " where fecha_hora >= ?";
+			try(Connection co =  conexion.darConexion();){	
+				PreparedStatement ps=co.prepareStatement(ordenSql);
+				ps.setString(1, localDate.toString());			
 				ps.executeQuery();
-				try (ResultSet rs=ps.getResultSet()){
-					rs.next();
-					login.setId(rs.getInt(1));
-					login.setEmail(rs.getString(2));
-					login.setPassHash(rs.getNString(3));
-				}catch(SQLException e){
-					System.out.println("El id "+id+" no existe en la base de datos.");
-					login=null;
+				ResultSet rs  = ps.getResultSet();
+				while (rs.next()) {
+				LocalDate localDate2 = LocalDate.parse(rs.getString(1)); 
+					arrayList.add(localDate2);
 				}
-			}catch (Exception e1){	
-				System.out.println(Mensajes.ERRORDELECTURA+e1.getMessage());
-			} finally {
-				return  login;
-			}
+
+				
+				}catch(SQLException e){
+					System.out.println(e);
+		
+				}
+			return arrayList;
+
 		}
 		
-
+/*
 		public Login read  (String datoBuscado, String nombreCampo) {
 			Login login=new Login();
 			String ordenSql="select * from "+tabla+ " where "+nombreCampo+"= ?";
