@@ -17,6 +17,7 @@ public class CitaServer {
 
 	public static void insertarCitaServer(Cliente cliente, CabecerasDiagnostico CabecerasDiagnostico) {
 		// probando en un usuario ya existente
+		
 		cliente.setId(1);
 		Vehiculo vehiculo = new Vehiculo();
 		vehiculo.setId(5);
