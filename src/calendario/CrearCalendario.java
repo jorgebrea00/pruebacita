@@ -40,6 +40,9 @@ public class CrearCalendario {
 						if (SaberSiExisteUnaCita.evaluarSiExiste(ld, dias)) {
 							System.out.print("| XX |");
 							dias++;
+						}else if (vueltas==1 && dias < localDateAhora.getDayOfMonth() ) {
+							System.out.print("| XX |");
+							dias++;
 						} else {
 							System.out.print("| " + (dias < 10 ? ("0" + dias) : ("" + dias)) + " |");
 							dias++;

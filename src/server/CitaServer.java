@@ -93,6 +93,8 @@ public class CitaServer {
 
 				System.out.println("el dia no es valido");
 
+			}else if(PedirDatosDia < localDataInsertarFechaAuto.getDayOfMonth() && PedirDatosMes == localDataInsertarFechaAuto.getMonthValue()) {
+				System.out.println("el dia no es valido , por que es anterior a la fecha actual");
 			} else {
 
 				LocalDate ld = LocalDate.of(localDataInsertarFechaAuto.getYear(), PedirDatosMes, PedirDatosDia);
